@@ -1,0 +1,147 @@
+$primary-color: #4ade80;
+$bg-dark: #111;
+$bg-card: #1a1a1a;
+$text-muted: #aaa;
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+:host {
+  display: block;
+  min-height: 100vh;
+  background: $bg-dark;
+  color: white;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.arcade-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.header {
+  margin-bottom: 60px;
+
+  .title {
+    font-size: 3rem;
+    color: $primary-color;
+    text-shadow: 0 0 15px rgba($primary-color, 0.4);
+    letter-spacing: 4px;
+    margin: 0;
+  }
+
+  .subtitle {
+    color: #666;
+    letter-spacing: 2px;
+    margin-top: 10px;
+    font-size: 0.9rem;
+    animation: blink 2s infinite;
+  }
+}
+
+.games-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  justify-content: center;
+}
+
+.game-card {
+  background: $bg-card;
+  border: 1px solid #333;
+  border-radius: 16px;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  &:hover {
+    transform: translateY(-8px);
+    border-color: $primary-color;
+    box-shadow: 0 10px 30px rgba($primary-color, 0.15);
+
+    .btn-play {
+      background: $primary-color;
+      color: black;
+    }
+  }
+
+  .card-preview {
+    height: 160px;
+    background: #222;
+    @include flex-center;
+    font-size: 4rem;
+    border-bottom: 1px solid #333;
+  }
+
+  &.snake-card .card-preview {
+    background: linear-gradient(135deg, #064e3b, #10b981);
+  }
+
+  .card-content {
+    padding: 24px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: left;
+
+    h2 {
+      margin: 0 0 8px 0;
+      font-size: 1.5rem;
+      color: white;
+    }
+
+    p {
+      color: $text-muted;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      margin: 0 0 20px 0;
+    }
+  }
+
+  .btn-play {
+    width: 100%;
+    padding: 12px;
+    background: #333;
+    color: white;
+    border: none;
+    font-weight: bold;
+    border-radius: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  &.locked {
+    opacity: 0.5;
+    cursor: default;
+    border-style: dashed;
+
+    &:hover {
+      transform: none;
+      box-shadow: none;
+      border-color: #333;
+    }
+
+    .card-preview {
+      background: #111;
+      color: #444;
+    }
+  }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}

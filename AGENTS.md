@@ -1,56 +1,68 @@
+# 🕹️ Rodrigo's Arcade
 
-You are an expert in TypeScript, Angular, and scalable web application development. You write functional, maintainable, performant, and accessible code following Angular and TypeScript best practices.
+Bem-vindo ao meu portfólio de jogos retro desenvolvidos com **Angular** moderno. Este projeto é um "Arcade Virtual" que explora diferentes mecânicas de jogos, desde manipulação de grid até física de alta performance, tudo rodando nativamente no navegador (SPA).
 
-## TypeScript Best Practices
+![Angular](https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+![SCSS](https://img.shields.io/badge/Sass-CC6699?style=for-the-badge&logo=sass&logoColor=white)
 
-- Use strict type checking
-- Prefer type inference when the type is obvious
-- Avoid the `any` type; use `unknown` when type is uncertain
+## 🎮 Jogos Disponíveis
 
-## Angular Best Practices
+### 1. Snake Classic 🐍
 
-- Always use standalone components over NgModules
-- Must NOT set `standalone: true` inside Angular decorators. It's the default in Angular v20+.
-- Use signals for state management
-- Implement lazy loading for feature routes
-- Do NOT use the `@HostBinding` and `@HostListener` decorators. Put host bindings inside the `host` object of the `@Component` or `@Directive` decorator instead
-- Use `NgOptimizedImage` for all static images.
-  - `NgOptimizedImage` does not work for inline base64 images.
+O clássico jogo da cobrinha, reimaginado com uma arquitetura reativa.
 
-## Accessibility Requirements
+- **Mecânica:** Baseada em Grid.
+- **Destaques:** Sistema de High Score, Power-ups e controle de velocidade.
 
-- It MUST pass all AXE checks.
-- It MUST follow all WCAG AA minimums, including focus management, color contrast, and ARIA attributes.
+### 2. River Raid (Atari Style) ✈️
 
-### Components
+Um tributo ao clássico do Atari 2600.
 
-- Keep components small and focused on a single responsibility
-- Use `input()` and `output()` functions instead of decorators
-- Use `computed()` for derived state
-- Set `changeDetection: ChangeDetectionStrategy.OnPush` in `@Component` decorator
-- Prefer inline templates for small components
-- Prefer Reactive forms instead of Template-driven ones
-- Do NOT use `ngClass`, use `class` bindings instead
-- Do NOT use `ngStyle`, use `style` bindings instead
-- When using external templates/styles, use paths relative to the component TS file.
+- **Mecânica:** Scroll infinito vertical com geração procedural de mapa.
+- **Tecnologia:**
+  - Renderização otimizada a 60 FPS usando `requestAnimationFrame` fora do Angular Zone (`NgZone`).
+  - Detecção de colisão AABB (Axis-Aligned Bounding Box).
+  - Sistema de Entidades (Inimigos, Combustível, Projéteis).
+  - Animações CSS via `will-change: transform` para uso da GPU.
 
-## State Management
+### 3. Checkers (Damas) ♟️
 
-- Use signals for local component state
-- Use `computed()` for derived state
-- Keep state transformations pure and predictable
-- Do NOT use `mutate` on signals, use `update` or `set` instead
+*(Em Desenvolvimento)*
 
-## Templates
+- **Planejado:** Inteligência Artificial usando algoritmo Minimax.
 
-- Keep templates simple and avoid complex logic
-- Use native control flow (`@if`, `@for`, `@switch`) instead of `*ngIf`, `*ngFor`, `*ngSwitch`
-- Use the async pipe to handle observables
-- Do not assume globals like (`new Date()`) are available.
-- Do not write arrow functions in templates (they are not supported).
+---
 
-## Services
+## 🏗️ Arquitetura do Projeto
 
-- Design services around a single responsibility
-- Use the `providedIn: 'root'` option for singleton services
-- Use the `inject()` function instead of constructor injection
+O projeto segue uma estrutura moderna e modular focada em escalabilidade:
+
+```text
+src/app/
+├── core/                  # Serviços Singleton (Audio, Storage Global)
+├── features/              # Módulos independentes (Cada jogo é uma feature)
+│   ├── home/              # Menu Principal (Arcade Dashboard)
+│   ├── snake-game/        # Lógica e Componentes do Snake
+│   └── river-raid/        # Engine de Física e Componentes do River Raid
+└── shared/                # Componentes reutilizáveis (ex: Botão Voltar)
+```
+
+## Para rodar o arcade, execute os comandos
+
+### Instale as dependências:
+
+```bash
+npm install
+```
+
+### Inicie o servidor de desenvolvimento:
+
+```bash
+npm run start
+```
+
+<div align="center"> 
+  <p>Desenvolvido com 💻 e ☕ por <strong>Rodrigo Silveira dos Santos</strong></p> 
+  <p>© 2026 Todos os direitos reservados.</p> 
+</div>

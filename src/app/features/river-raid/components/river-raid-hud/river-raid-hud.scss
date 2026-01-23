@@ -1,0 +1,104 @@
+:host {
+  display: block;
+  width: 100%;
+  // O HUD do Atari geralmente ficava embaixo
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+}
+
+.hud-container {
+  background-color: #000;
+  border-top: 4px solid #444;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  color: #fff;
+  font-family: 'Courier New', Courier, monospace; // Fonte Monoespaçada é essencial
+  font-weight: bold;
+  box-shadow: 0 -5px 20px rgba(0,0,0,0.5);
+}
+
+// --- SCORE ---
+.score-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  .label {
+    font-size: 0.8rem;
+    color: #888;
+    letter-spacing: 2px;
+  }
+
+  .value {
+    font-size: 1.8rem;
+    color: #fff;
+    letter-spacing: 3px;
+    text-shadow: 2px 2px 0 #333;
+  }
+}
+
+// --- FUEL BAR ---
+.fuel-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: 200px; // Largura fixa para a barra não pular
+
+  .label {
+    font-size: 0.8rem;
+    color: #888;
+    margin-bottom: 5px;
+  }
+
+  .fuel-gauge-border {
+    width: 100%;
+    height: 20px;
+    border: 2px solid #666;
+    background: #222;
+    padding: 2px;
+    border-radius: 4px;
+  }
+
+  .fuel-bar {
+    height: 100%;
+    transition: width 0.1s linear, background-color 0.3s;
+    box-shadow: inset 0 2px 0 rgba(255,255,255,0.3); // Efeito de brilho "vidro"
+
+    &.critical {
+      animation: blink-fuel 0.5s infinite;
+    }
+  }
+}
+
+// --- STATUS (CENTRO) ---
+.status-panel {
+  text-align: center;
+  color: #ef4444;
+
+  .blink-text {
+    font-size: 1.5rem;
+    display: block;
+    animation: blink-text 1s infinite;
+  }
+
+  small {
+    color: #888;
+    font-size: 0.7rem;
+  }
+}
+
+// --- ANIMAÇÕES ---
+@keyframes blink-fuel {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+@keyframes blink-text {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0; transform: scale(0.95); }
+}

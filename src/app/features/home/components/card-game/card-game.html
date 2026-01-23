@@ -1,0 +1,14 @@
+<a [routerLink]="routerLink" class="game-card snake-card" [ngClass]="{ disabled: disabled }">
+  <div class="card-preview">
+    <span class="icon">
+      {{ icon }}
+    </span>
+  </div>
+  <div class="card-info">
+    <h2>{{ title }}</h2>
+    <p>{{ description }}</p>
+    @if (!disabled) {
+      <button class="btn-play">JOGAR AGORA</button>
+    }
+  </div>
+</a>

@@ -1,0 +1,79 @@
+<app-arcade-back-button />
+
+<div class="arcade-wrapper">
+
+  <div class="game-viewport"
+       [style.width.px]="engine.GAME_WIDTH"
+       [style.height.px]="engine.GAME_HEIGHT">
+
+    @for (slice of engine.riverSlices(); track slice.id) {
+      <div class="river-slice"
+           [style.transform]="'translateY(' + slice.y + 'px)'"
+           [style.height.px]="slice.height">
+
+        <div class="bank left" [style.width.%]="slice.leftBank"></div>
+        <div class="bank right" [style.width.%]="slice.rightBank"></div>
+      </div>
+    }
+
+    @for (entity of engine.enemies(); track entity.id) {
+      <div class="entity"
+           [ngClass]="entity.type"
+           [style.width.px]="entity.width"
+           [style.height.px]="entity.height"
+           [style.transform]="'translate(' + entity.x + 'px, ' + entity.y + 'px)'">
+
+        @if (entity.type === 'ENEMY_SHIP') {
+          <span class="sprite ship">🚢</span>
+        } @else if (entity.type === 'ENEMY_HELI') {
+          <span class="sprite heli">🚁</span>
+        } @else if (entity.type === 'FUEL') {
+          <div class="sprite fuel-tank">
+            <span class="fuel-label">FUEL</span>
+          </div>
+        }
+      </div>
+    }
+
+    @for (bullet of engine.bullets(); track bullet.id) {
+      <div class="bullet"
+           [style.transform]="'translate(' + bullet.x + 'px, ' + bullet.y + 'px)'">
+      </div>
+    }
+
+    <div class="player-jet"
+         [style.width.px]="engine.player().width"
+         [style.height.px]="engine.player().height"
+         [style.transform]="'translate(' + engine.player().x + 'px, ' + engine.player().y + 'px)'">
+      <span class="jet-sprite">✈️</span>
+      <span class="jet-thrust"></span>
+    </div>
+
+    <app-river-raid-hud />
+
+    @if (engine.status() !== 'PLAYING') {
+      <div class="overlay">
+        <div class="message-box">
+          @if (engine.status() === 'IDLE') {
+            <h1 class="title-neon">RIVER RAID</h1>
+          } @else if (engine.status() === 'GAME_OVER') {
+            <h1 class="title-crash">CRASHED!</h1>
+            <div class="final-score">
+              <small>FINAL SCORE</small>
+              <span>{{ engine.score() }}</span>
+            </div>
+          }
+
+          <button class="btn-start" (click)="startGame()">
+            {{ engine.status() === 'IDLE' ? 'START MISSION' : 'RETRY MISSION' }}
+          </button>
+
+          <div class="controls-hint">
+            <p>⬅️ ➡️ to Move</p>
+            <p>[SPACE] to Shoot</p>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</div>

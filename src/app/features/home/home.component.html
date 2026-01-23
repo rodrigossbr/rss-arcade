@@ -3,24 +3,23 @@
     <h1 class="title">RODRIGO'S ARCADE</h1>
   </header>
   <div class="games-grid">
-    <a routerLink="/snake" class="game-card snake-card">
-      <div class="card-preview">
-        <span class="icon">🐍</span>
-      </div>
-      <div class="card-info">
-        <h2>Snake Game</h2>
-        <p>O clássico. Coma, cresça e sobreviva!</p>
-        <button class="btn-play">JOGAR AGORA</button>
-      </div>
-    </a>
-    <div class="game-card disabled">
-      <div class="card-preview locked">
-        <span class="icon">🔒</span>
-      </div>
-      <div class="card-info">
-        <h2>Em Breve</h2>
-        <p>Novos jogos estão sendo desenvolvidos.</p>
-      </div>
-    </div>
+    <app-card-game
+      routerLink="/snake"
+      icon="🐍"
+      title="Snake Game"
+      description="O clássico. Coma, cresça e sobreviva!"
+    />
+    <app-card-game
+      routerLink="/river-raid"
+      icon="✈️"
+      title="River Raid Game"
+      description="O clássico de aviões do Atari!"
+    />
+    <app-card-game
+      icon="🔒"
+      title="Em Breve"
+      description="Novos jogos estão sendo desenvolvidos."
+      [disabled]="true"
+    />
   </div>
 </div>

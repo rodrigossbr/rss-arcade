@@ -1,0 +1,24 @@
+<div class="hud-container">
+
+  <div class="score-panel">
+    <span class="label">SCORE</span>
+    <span class="value">{{ formattedScore() }}</span>
+  </div>
+
+  <div class="status-panel" *ngIf="engine.status() === 'GAME_OVER'">
+    <span class="blink-text">GAME OVER</span>
+    <small>PRESS F5 TO RESTART</small>
+  </div>
+
+  <div class="fuel-panel">
+    <span class="label">FUEL</span>
+    <div class="fuel-gauge-border">
+      <div class="fuel-bar"
+           [style.width.%]="engine.fuel()"
+           [style.background-color]="fuelColor()"
+           [class.critical]="isFuelCritical()">
+      </div>
+    </div>
+  </div>
+
+</div>

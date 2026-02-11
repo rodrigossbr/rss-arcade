@@ -1,5 +1,5 @@
-import { Injectable, signal, NgZone, inject, OnDestroy } from '@angular/core';
-import { RiverSlice, Player, GameEntity, EntityType } from '../models/river-raid.model';
+import {inject, Injectable, NgZone, OnDestroy, signal} from '@angular/core';
+import {EntityType, GameEntity, Player, RiverSlice} from '../models/river-raid.model';
 
 @Injectable({
   providedIn: 'root'
@@ -74,7 +74,7 @@ export class RiverRaidEngineService implements OnDestroy {
     this.status.set('PLAYING');
 
     // 2. Resetar Player
-    this.player.set({ ...this.player(), x: this.GAME_WIDTH / 2 - 20, speedX: 0 });
+    this.player.set({...this.player(), x: this.GAME_WIDTH / 2 - 20, speedX: 0});
 
     // 3. Resetar Procedural
     this.nextSliceId = 0;
@@ -112,11 +112,18 @@ export class RiverRaidEngineService implements OnDestroy {
   private gameLoop = () => {
     if (this.status() !== 'PLAYING') return;
 
-    // 1. Movimento
+    // 1. Movimento e Ações
     this.updatePlayer();
-    this.updateMap();     // Rio e Inimigos descem aqui
-    this.updateEnemies(); // Lógica horizontal dos inimigos
-    this.updateBullets(); // Tiros sobem
+
+    // --- NOVO: Auto-Fire ---
+    // Se o ESPAÇO estiver pressionado, tenta atirar
+    if (this.keysPressed.has('Space')) {
+      this.shoot();
+    }
+
+    this.updateMap();
+    this.updateEnemies();
+    this.updateBullets();
 
     // 2. Física
     this.checkCollisions();
@@ -148,7 +155,7 @@ export class RiverRaidEngineService implements OnDestroy {
 
     // Atualiza apenas se moveu
     if (newX !== p.x) {
-      this.ngZone.run(() => this.player.update(curr => ({ ...curr, x: newX })));
+      this.ngZone.run(() => this.player.update(curr => ({...curr, x: newX})));
     }
   }
 
@@ -263,67 +270,74 @@ export class RiverRaidEngineService implements OnDestroy {
     const enemies = this.enemies();
     const bullets = this.bullets();
 
+    // --- CONFIGURAÇÃO DE TOLERÂNCIA (O Segredo) ---
+    // Quanto maior esse número, mais você pode "entrar" na parede sem morrer.
+    // Como a div tem 40px e o avião visualmente uns 20px, vamos tirar 10px de cada lado.
+    const HORIZONTAL_PADDING = 12;
+    const VERTICAL_PADDING = 8;
+
     // 1. JOGADOR vs RIO (Paredes)
-    // Encontra a fatia onde o jogador está (Y = 650)
-    const collidingSlice = slices.find(s =>
-      p.y + p.height > s.y && p.y < s.y + s.height
+    // Filtra todas as fatias que o jogador toca verticalmente
+    const collidingSlices = slices.filter(s =>
+      p.y + p.height - VERTICAL_PADDING > s.y &&
+      p.y + VERTICAL_PADDING < s.y + s.height
     );
 
-    if (collidingSlice) {
-      const leftWallX = (this.GAME_WIDTH * collidingSlice.leftBank) / 100;
-      const rightWallX = this.GAME_WIDTH - ((this.GAME_WIDTH * collidingSlice.rightBank) / 100);
+    for (const slice of collidingSlices) {
+      const leftWallX = (this.GAME_WIDTH * slice.leftBank) / 100;
+      const rightWallX = this.GAME_WIDTH - ((this.GAME_WIDTH * slice.rightBank) / 100);
 
-      // Bateu na esquerda ou direita?
-      if (p.x < leftWallX || p.x + p.width > rightWallX) {
+      // Verificação:
+      // A ESQUERDA do jogador (+ tolerância) está dentro da parede esquerda?
+      const hitLeft = (p.x + HORIZONTAL_PADDING) < leftWallX;
+
+      // A DIREITA do jogador (- tolerância) está dentro da parede direita?
+      const hitRight = (p.x + p.width - HORIZONTAL_PADDING) > rightWallX;
+
+      if (hitLeft || hitRight) {
         this.handleCrash('Bateu na Margem');
         return;
       }
     }
 
-    // 2. BALA vs INIMIGO
+    // 2. BALA vs INIMIGO (Mantemos preciso)
     bullets.forEach(b => {
       if (!b.active) return;
       enemies.forEach(e => {
         if (!e.active) return;
 
-        if (this.isColliding(b, e)) {
-          b.active = false; // Bala some
-          e.active = false; // Inimigo some
-
+        // Tiros têm pouca tolerância (precisão)
+        if (this.isColliding(b, e, 2)) {
+          b.active = false;
+          e.active = false;
           this.ngZone.run(() => {
-            // Pontuação
-            if (e.type === 'FUEL') this.score.update(s => s + 50); // Menos pontos destruir fuel
-            else this.score.update(s => s + 150); // Mais pontos destruir inimigo
+            if (e.type === 'FUEL') this.score.update(s => s + 50);
+            else this.score.update(s => s + 150);
           });
         }
       });
     });
 
-    // 3. JOGADOR vs INIMIGO
+    // 3. JOGADOR vs INIMIGO (Muito tolerante)
     enemies.forEach(e => {
-      if (e.active && this.isColliding(p, e)) {
+      // Usamos a mesma tolerância alta das paredes para os inimigos
+      if (e.active && this.isColliding(p, e, 10)) {
         if (e.type === 'FUEL') {
-          // Reabastecer!
-          e.active = false; // Consome o item
-          this.ngZone.run(() => {
-            this.fuel.set(100);
-            // Som de reabastecer poderia vir aqui
-          });
+          e.active = false;
+          this.ngZone.run(() => this.fuel.set(100));
         } else {
-          // Bateu em Barco ou Helicóptero
           this.handleCrash('Colisão com ' + e.type);
         }
       }
     });
   }
 
-  // Colisão Retângulo-Retângulo (AABB)
-  private isColliding(a: {x:number, y:number, width:number, height:number}, b: {x:number, y:number, width:number, height:number}): boolean {
+  private isColliding(a: any, b: any, padding: number): boolean {
     return (
-      a.x < b.x + b.width &&
-      a.x + a.width > b.x &&
-      a.y < b.y + b.height &&
-      a.y + a.height > b.y
+      a.x + padding < b.x + b.width - padding &&
+      a.x + a.width - padding > b.x + padding &&
+      a.y + padding < b.y + b.height - padding &&
+      a.y + a.height - padding > b.y + padding
     );
   }
 
@@ -374,8 +388,8 @@ export class RiverRaidEngineService implements OnDestroy {
     if (this.riverWidth < 25) this.riverWidth = 25; // Mínimo
     if (this.riverWidth > 85) this.riverWidth = 85; // Máximo
 
-    if (this.riverCenter - this.riverWidth/2 < 5) this.riverCenter += 1;
-    if (this.riverCenter + this.riverWidth/2 > 95) this.riverCenter -= 1;
+    if (this.riverCenter - this.riverWidth / 2 < 5) this.riverCenter += 1;
+    if (this.riverCenter + this.riverWidth / 2 > 95) this.riverCenter -= 1;
 
     // 4. Calcula Margens
     const halfWidth = this.riverWidth / 2;
@@ -447,11 +461,11 @@ export class RiverRaidEngineService implements OnDestroy {
   private handleKeyDown = (e: KeyboardEvent) => {
     if (this.status() === 'PLAYING') {
       this.keysPressed.add(e.code);
-      if (e.code === 'Space') {
-        this.shoot();
-      }
+
+      // --- REMOVIDO: if (e.code === 'Space') this.shoot(); ---
+      // Agora o gameLoop cuida disso olhando o keysPressed
+
     } else if (this.status() === 'GAME_OVER' && e.code === 'F5') {
-      // Recarregar página nativo, ou chame this.startGame()
       window.location.reload();
     }
   };

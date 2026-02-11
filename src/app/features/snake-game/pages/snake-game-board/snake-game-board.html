@@ -1,15 +1,6 @@
 <div class="game-container">
   <app-arcade-back-button (backClick)="game.stopGame()"/>
-  <div class="hud">
-    <div class="stat-box">
-      <span class="label">SCORE</span>
-      <span class="value">{{ game.score() }}</span>
-    </div>
-    <div class="stat-box record">
-      <span class="label">BEST</span>
-      <span class="value">{{ game.highScore() }}</span>
-    </div>
-  </div>
+  <app-snake-game-hud />
 
   <div class="board-wrapper">
     <div class="board" [style.grid-template-columns]="gridStyle">

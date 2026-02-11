@@ -15,6 +15,12 @@ $color-bullet: #f1c40f;
   font-family: 'Segoe UI', monospace;
 }
 
+.player-jet, .entity, .bullet, .river-slice .bank {
+  // Borda vermelha para ver onde o objeto realmente começa e termina
+  outline: 1px solid rgba(255, 0, 0, 0.7) !important;
+  background-color: rgba(255, 0, 0, 0.2) !important; // Fundo levemente vermelho
+}
+
 .arcade-wrapper {
   position: relative;
   box-shadow: 0 0 60px rgba(0, 0, 0, 0.8);

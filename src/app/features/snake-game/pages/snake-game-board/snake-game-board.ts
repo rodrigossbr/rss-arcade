@@ -2,13 +2,15 @@ import {Component, HostListener, inject} from '@angular/core';
 import {NgClass, NgTemplateOutlet} from '@angular/common';
 import {SnackGameEngineService} from '../../services/snack-game-engine/snack-game-engine.service';
 import {ArcadeBackButton} from '@app/shared';
+import {SnakeGameHud} from '@feature/snake-game/components/snake-game-hud/snake-game-hud';
 
 @Component({
   selector: 'app-game-board',
   imports: [
     NgClass,
     NgTemplateOutlet,
-    ArcadeBackButton
+    ArcadeBackButton,
+    SnakeGameHud
   ],
   templateUrl: './snake-game-board.html',
   styleUrl: './snake-game-board.scss',

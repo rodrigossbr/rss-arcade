@@ -3,23 +3,14 @@
     <h1 class="title">RODRIGO'S ARCADE</h1>
   </header>
   <div class="games-grid">
-    <app-card-game
-      routerLink="/snake"
-      icon="🐍"
-      title="Snake Game"
-      description="O clássico. Coma, cresça e sobreviva!"
-    />
-    <app-card-game
-      routerLink="/river-raid"
-      icon="✈️"
-      title="River Raid Game"
-      description="O clássico de aviões do Atari!"
-    />
-    <app-card-game
-      icon="🔒"
-      title="Em Breve"
-      description="Novos jogos estão sendo desenvolvidos."
-      [disabled]="true"
-    />
+    @for (cardGame of cardsGames; track cardGame.title) {
+      <app-card-game
+        [routerLink]="cardGame.routerLink || ''"
+        [icon]="cardGame.icon"
+        [title]="cardGame.title"
+        [description]="cardGame.description"
+        [disabled]="!cardGame.routerLink"
+      />
+    }
   </div>
 </div>

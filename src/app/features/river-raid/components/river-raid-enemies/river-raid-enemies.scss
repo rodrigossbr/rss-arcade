@@ -1,0 +1,54 @@
+:host {
+
+  .entity {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    will-change: transform;
+
+    // -- BARCO --
+    &.ENEMY_SHIP {
+      .sprite.ship {
+        font-size: 2rem;
+        filter: drop-shadow(2px 2px 0 rgba(0,0,0,0.5));
+        transform: scaleX(-1); // Espelha se quiser
+      }
+    }
+
+    // -- HELICÓPTERO --
+    &.ENEMY_HELI {
+      animation: float-heli 0.5s infinite alternate ease-in-out;
+
+      .sprite.heli {
+        font-size: 2.2rem;
+        filter: drop-shadow(0 10px 5px rgba(0,0,0,0.3)); // Sombra no chão
+      }
+    }
+
+    // -- COMBUSTÍVEL --
+    &.FUEL {
+      .fuel-tank {
+        background: linear-gradient(to bottom, #e67e22, #d35400);
+        width: 100%;
+        height: 100%;
+        border: 2px solid #fff;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 0 #a04000;
+
+        .fuel-label {
+          color: white;
+          font-weight: 900;
+          font-size: 0.7rem;
+          letter-spacing: 1px;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+@if (engine.status() !== 'PLAYING') {
+  <div class="overlay">
+    <div class="message-box">
+      @if (engine.status() === 'IDLE') {
+        <h1 class="title-neon">RIVER RAID</h1>
+      } @else if (engine.status() === 'GAME_OVER') {
+        <h1 class="title-crash">CRASHED!</h1>
+        <div class="final-score">
+          <small>FINAL SCORE</small>
+          <span>{{ engine.score() }}</span>
+        </div>
+      }
+
+      <button class="btn-start" (click)="startGame()">
+        {{ engine.status() === 'IDLE' ? 'START MISSION' : 'RETRY MISSION' }}
+      </button>
+
+      <app-river-raid-controls-hint />
+    </div>
+  </div>
+}

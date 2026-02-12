@@ -1,0 +1,13 @@
+@for (bullet of engine.bullets(); track bullet.id) {
+  <div class="bullet"
+       [style.transform]="'translate(' + bullet.x + 'px, ' + bullet.y + 'px)'">
+  </div>
+}
+
+<div class="player-jet"
+     [style.width.px]="engine.player().width"
+     [style.height.px]="engine.player().height"
+     [style.transform]="'translate(' + engine.player().x + 'px, ' + engine.player().y + 'px)'">
+  <span class="jet-sprite">✈️</span>
+  <span class="jet-thrust"></span>
+</div>

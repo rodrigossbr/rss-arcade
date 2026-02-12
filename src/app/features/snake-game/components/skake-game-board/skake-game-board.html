@@ -1,0 +1,17 @@
+<div class="board-wrapper">
+  <div class="board" [style.grid-template-columns]="gridStyle">
+    @for (row of rows; track row) {
+      @for (col of cols; track col) {
+        <div class="cell"
+             [ngClass]="{
+                     'snake': isSnake(col, row),
+                     'food': isFood(col, row),
+                     'snake-head': isSnakeHead(col, row)
+                   }">
+        </div>
+      }
+    }
+  </div>
+
+  <app-snack-game-screen-overlay />
+</div>

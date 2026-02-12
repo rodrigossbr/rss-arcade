@@ -1,0 +1,31 @@
+:host {
+
+  .settings {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 20px;
+
+    .btn-toggle {
+      background: transparent;
+      border: 2px solid #666;
+      color: #888;
+      font-size: 0.8rem;
+      padding: 8px 16px;
+      min-width: 140px;
+    }
+
+    .btn-toggle.active {
+      border-color: #ef4444;
+      color: #ef4444;
+      background: rgba(239, 68, 68, 0.1);
+    }
+
+    .btn-toggle.muted {
+      border-color: #666;
+      color: #666;
+      opacity: 0.7;
+      text-decoration: line-through;
+    }
+  }
+}

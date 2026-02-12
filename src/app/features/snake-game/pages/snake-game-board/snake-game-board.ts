@@ -1,16 +1,17 @@
 import {Component, HostListener, inject} from '@angular/core';
-import {NgClass, NgTemplateOutlet} from '@angular/common';
 import {SnackGameEngineService} from '../../services/snack-game-engine/snack-game-engine.service';
 import {ArcadeBackButton} from '@app/shared';
 import {SnakeGameHud} from '@feature/snake-game/components/snake-game-hud/snake-game-hud';
+import {SnakeGameControlsHint} from '@feature/snake-game/components/snake-game-controls-hint/snake-game-controls-hint';
+import {SkakeGameBoard} from '@feature/snake-game/components/skake-game-board/skake-game-board';
 
 @Component({
-  selector: 'app-game-board',
+  selector: 'app-snake-game-board',
   imports: [
-    NgClass,
-    NgTemplateOutlet,
     ArcadeBackButton,
-    SnakeGameHud
+    SnakeGameHud,
+    SnakeGameControlsHint,
+    SkakeGameBoard
   ],
   templateUrl: './snake-game-board.html',
   styleUrl: './snake-game-board.scss',
@@ -18,10 +19,6 @@ import {SnakeGameHud} from '@feature/snake-game/components/snake-game-hud/snake-
 export class SnakeGameBoard {
 
   protected game = inject(SnackGameEngineService);
-
-  protected rows = Array.from({length: this.game.BOARD_SIZE}, (_, i) => i);
-  protected cols = Array.from({length: this.game.BOARD_SIZE}, (_, i) => i);
-  protected gridStyle = `repeat(${this.game.BOARD_SIZE}, 1fr)`;
 
   @HostListener('window:keydown', ['$event'])
   protected handleKeyboardEvent(event: KeyboardEvent) {
@@ -46,20 +43,6 @@ export class SnakeGameBoard {
         this.game.pauseGame();
         break;
     }
-  }
-
-  protected isSnake(x: number, y: number): boolean {
-    return this.game.snake().some(s => s.x === x && s.y === y);
-  }
-
-  protected isSnakeHead(x: number, y: number): boolean {
-    const head = this.game.snake()[0];
-    return head.x === x && head.y === y;
-  }
-
-  protected isFood(x: number, y: number): boolean {
-    const f = this.game.food();
-    return f.x === x && f.y === y;
   }
 
   protected stopGame(): void {

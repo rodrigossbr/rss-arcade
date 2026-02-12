@@ -1,0 +1,9 @@
+@for (slice of engine.riverSlices(); track slice.id) {
+  <div class="river-slice"
+       [style.transform]="'translateY(' + slice.y + 'px)'"
+       [style.height.px]="slice.height">
+
+    <div class="bank left" [style.width.%]="slice.leftBank"></div>
+    <div class="bank right" [style.width.%]="slice.rightBank"></div>
+  </div>
+}

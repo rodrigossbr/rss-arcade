@@ -1,0 +1,52 @@
+$color-water: #2c3e50;
+$color-bank: #27ae60;
+$color-bank-dark: #1e8449;
+$color-ship: #34495e;
+$color-fuel: #d35400;
+$color-bullet: #f1c40f;
+
+:host {
+
+  .bullet {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 6px;
+    height: 14px;
+    background-color: $color-bullet;
+    border-radius: 4px;
+    box-shadow: 0 0 8px $color-bullet; // Glow
+    z-index: 5;
+    will-change: transform;
+  }
+
+  .player-jet {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    will-change: transform;
+
+    .jet-sprite {
+      font-size: 2.5rem;
+      line-height: 1;
+      transform: rotate(-45deg);
+      filter: drop-shadow(0 5px 10px rgba(0,0,0,0.5));
+      z-index: 2;
+    }
+
+    .jet-thrust {
+      width: 6px;
+      height: 15px;
+      background: orange;
+      border-radius: 50%;
+      margin-top: -5px;
+      z-index: 1;
+      animation: thrust-anim 0.1s infinite alternate;
+      box-shadow: 0 0 10px orange;
+    }
+  }
+}

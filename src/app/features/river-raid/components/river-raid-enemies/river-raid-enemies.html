@@ -1,0 +1,18 @@
+@for (entity of engine.enemies(); track entity.id) {
+  <div class="entity"
+       [ngClass]="entity.type"
+       [style.width.px]="entity.width"
+       [style.height.px]="entity.height"
+       [style.transform]="'translate(' + entity.x + 'px, ' + entity.y + 'px)'">
+
+    @if (entity.type === 'ENEMY_SHIP') {
+      <span class="sprite ship">🚢</span>
+    } @else if (entity.type === 'ENEMY_HELI') {
+      <span class="sprite heli">🚁</span>
+    } @else if (entity.type === 'FUEL') {
+      <div class="sprite fuel-tank">
+        <span class="fuel-label">FUEL</span>
+      </div>
+    }
+  </div>
+}

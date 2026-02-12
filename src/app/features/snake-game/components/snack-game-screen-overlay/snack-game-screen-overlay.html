@@ -1,0 +1,24 @@
+@if (game.status() === 'IDLE') {
+  <div class="overlay start-screen">
+    <h1>SNAKE</h1>
+    <p>Use as setas para mover</p>
+    <app-snake-game-settings />
+    <button #btnAction class="btn-primary" (click)="game.startGame()">JOGAR AGORA</button>
+  </div>
+}
+
+@if (game.status() === 'PAUSED') {
+  <div class="overlay paused-screen">
+    <h2>PAUSADO</h2>
+    <button #btnAction class="btn-secondary" (click)="game.pauseGame()">CONTINUAR</button>
+  </div>
+}
+
+@if (game.status() === 'GAME_OVER') {
+  <div class="overlay game-over-screen">
+    <h2>GAME OVER</h2>
+    <p>Score Final: {{ game.score() }}</p>
+    <app-snake-game-settings />
+    <button #btnAction class="btn-primary" (click)="game.startGame()">TENTAR DE NOVO</button>
+  </div>
+}

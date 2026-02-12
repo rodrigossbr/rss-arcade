@@ -1,0 +1,28 @@
+$color-water: #2c3e50;
+$color-bank: #27ae60;
+$color-bank-dark: #1e8449;
+$color-ship: #34495e;
+$color-fuel: #d35400;
+$color-bullet: #f1c40f;
+
+:host {
+
+  .river-slice {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    will-change: transform;
+
+    .bank {
+      position: absolute;
+      top: 0;
+      height: 100%;
+      background-color: $color-bank;
+      border-left: 4px solid $color-bank-dark;
+      border-right: 4px solid $color-bank-dark;
+
+      &.left { left: 0; }
+      &.right { right: 0; }
+    }
+  }
+}

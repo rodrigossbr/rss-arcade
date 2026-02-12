@@ -1,0 +1,69 @@
+:host {
+
+  .overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(4px);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .message-box {
+      text-align: center;
+      color: white;
+      animation: pop-in 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+      h1 {
+        font-size: 3rem;
+        margin: 0 0 20px;
+
+        &.title-neon {
+          color: #2ecc71;
+          text-shadow: 0 0 20px rgba(46, 204, 113, 0.5);
+        }
+        &.title-crash {
+          color: #e74c3c;
+          text-shadow: 0 0 20px rgba(231, 76, 60, 0.5);
+          animation: shake 0.5s;
+        }
+      }
+
+      .final-score {
+        margin-bottom: 30px;
+        display: flex;
+        flex-direction: column;
+
+        small { color: #aaa; letter-spacing: 2px; }
+        span { font-size: 2.5rem; font-weight: bold; }
+      }
+
+      .btn-start {
+        background: white;
+        color: black;
+        border: none;
+        padding: 15px 40px;
+        font-size: 1.2rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        cursor: pointer;
+        border-radius: 4px;
+        transition: transform 0.2s, box-shadow 0.2s;
+
+        &:hover {
+          transform: scale(1.05);
+          box-shadow: 0 0 20px white;
+        }
+      }
+
+      .controls-hint {
+        margin-top: 30px;
+        color: #777;
+        font-size: 0.9rem;
+        border-top: 1px solid #333;
+        padding-top: 20px;
+      }
+    }
+  }
+}

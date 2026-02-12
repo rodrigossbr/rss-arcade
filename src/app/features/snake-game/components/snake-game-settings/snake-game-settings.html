@@ -1,0 +1,15 @@
+<div class="settings">
+
+  <button class="btn-toggle"
+          (click)="game.toggleWallCollision()"
+          [class.active]="game.hasWallCollision()">
+    Paredes: {{ game.hasWallCollision() ? 'ON' : 'OFF' }}
+  </button>
+
+  <button class="btn-toggle"
+          (click)="game.toggleMute()"
+          [class.muted]="game.isMuted()">
+    Som: {{ game.isMuted() ? 'OFF' : 'ON' }}
+  </button>
+
+</div>

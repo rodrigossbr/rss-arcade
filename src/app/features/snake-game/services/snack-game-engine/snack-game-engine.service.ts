@@ -2,14 +2,7 @@ import {computed, inject, Injectable, OnDestroy, signal} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {SnackGameSettingsStore} from '../../stores/snack-game-settings-store/snack-game-settings-store';
 import {SnakeGameAudioService} from '../audio/snake-game-audio.service';
-
-export interface Point {
-  x: number;
-  y: number;
-}
-
-export type Direction = 'UP' | 'DOWN' | 'LEFT' | 'RIGHT';
-export type GameStatus = 'IDLE' | 'PLAYING' | 'PAUSED' | 'GAME_OVER';
+import {Direction, GameStatus, Point} from '@core/models';
 
 @Injectable({
   providedIn: 'root'
@@ -107,7 +100,7 @@ export class SnackGameEngineService implements OnDestroy {
   }
 
   public isMuted(): boolean {
-    return this.audio.isMuted();
+    return this.audio.isMuted;
   }
 
   private snakeMove() {

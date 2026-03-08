@@ -7,43 +7,36 @@ import {EntityType, GameEntity, Player, RiverSlice} from '../models/river-raid.m
 export class RiverRaidEngineService implements OnDestroy {
   private ngZone = inject(NgZone);
 
-  // --- CONFIGURAÇÕES DO JOGO ---
   readonly GAME_WIDTH = 600;
   readonly GAME_HEIGHT = 800;
-  readonly SCROLL_SPEED = 5;      // Velocidade do rio descendo
-  readonly SLICE_HEIGHT = 20;     // Altura de cada fatia do rio
-  readonly BULLET_SPEED = 12;     // Velocidade do tiro
+  readonly SCROLL_SPEED = 5;
+  readonly SLICE_HEIGHT = 20;
+  readonly BULLET_SPEED = 12;
 
-  // --- ESTADO DO JOGO (SIGNALS) ---
   readonly status = signal<'IDLE' | 'PLAYING' | 'GAME_OVER'>('IDLE');
   readonly score = signal(0);
   readonly fuel = signal(100);
 
-  // O Jogador
   readonly player = signal<Player>({
     x: 300 - 20,
-    y: 650, // Posição fixa vertical (o rio que move)
+    y: 650,
     width: 40,
     height: 30,
     speedX: 0,
     maxSpeed: 4
   });
 
-  // Listas de Objetos
   readonly riverSlices = signal<RiverSlice[]>([]);
   readonly enemies = signal<GameEntity[]>([]);
   readonly bullets = signal<GameEntity[]>([]);
 
-  // --- VARIÁVEIS INTERNAS ---
   private gameLoopId: number | null = null;
   private keysPressed = new Set<string>();
 
-  // Controle de IDs e Timers
   private nextSliceId = 0;
   private nextEntityId = 0;
   private lastShotTime = 0;
 
-  // Geração Procedural (Algoritmo do Rio)
   private riverCenter = 50; // Centro em % (0 a 100)
   private riverWidth = 60;  // Largura em %
   private riverTrend = 0;   // Tendência da curva
@@ -232,7 +225,6 @@ export class RiverRaidEngineService implements OnDestroy {
   // =================================================================
   // SISTEMA DE TIRO
   // =================================================================
-
   private shoot() {
     if (this.status() !== 'PLAYING') return;
 

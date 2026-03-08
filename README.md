@@ -1,59 +1,80 @@
-# RssArcade
+# 🕹️ Rodrigo's Arcade
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.1.0.
+Um portfólio interativo de jogos retro desenvolvidos nativamente no navegador utilizando **Angular** moderno. Este projeto demonstra a aplicação de padrões de arquitetura escaláveis, gerenciamento de estado reativo e otimização de performance para renderização de frames em tempo real.
 
-## Development server
+![Angular](https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+![SCSS](https://img.shields.io/badge/Sass-CC6699?style=for-the-badge&logo=sass&logoColor=white)
 
-To start a local development server, run:
+<div align="center">
+  <img src="./docs/prints/home.png" alt="Tela Inicial do Arcade" width="800"/>
+</div>
 
-```bash
-ng serve
+---
+
+## 🎮 Jogos Inclusos
+
+### 1. Snake Classic 🐍
+O clássico jogo da cobrinha, reimaginado com uma arquitetura baseada em grid e controle de estado reativo.
+- **Destaques:** Sistema de pontuação, power-ups e aumento progressivo de dificuldade.
+
+<div align="center">
+  <img src="./docs/prints/snake.png" alt="Gameplay do Snake" width="800"/>
+</div>
+
+### 2. River Raid (Atari Tribute) ✈️
+Um motor de física contínua com rolagem vertical infinita.
+- **Mecânica:** Geração procedural do mapa (o rio nunca se repete) e sistema de auto-fire contínuo.
+- **Tecnologia:** - Loop de renderização a 60 FPS executado via `requestAnimationFrame` fora do Angular Zone (`NgZone.runOutsideAngular`) para máxima performance.
+  - Sistema de colisão AABB com *Hitbox Padding* para uma experiência de jogo mais justa e fluida.
+  - Sistema de Entidades (Inimigos, Combustível, Projéteis).
+  - Animações otimizadas via GPU (`will-change: transform`).
+
+<div align="center">
+  <img src="./docs/prints/river-raid.png" alt="Gameplay do River Raid" width="800"/>
+</div>
+
+### 3. Checkers (Damas) ♟️ *(Em Desenvolvimento)*
+- **Foco:** Inteligência Artificial e algoritmos de tomada de decisão utilizando **Minimax**.
+
+---
+
+## 🏗️ Arquitetura do Projeto
+
+O código foi estruturado focando em escalabilidade e separação de responsabilidades (Modular Monolith):
+
+```text
+src/app/
+├── core/                  # Serviços Singleton e Store global (Configurações, Áudio)
+├── features/              # Módulos independentes encapsulados
+│   ├── home/              # Interface do Arcade Dashboard
+│   ├── snake-game/        # Lógica de Grid e UI do Snake
+│   └── river-raid/        # Engine de Física e UI do River Raid
+└── shared/                # Componentes reutilizáveis (ex: Arcade Back Button)
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+### Principais Padrões Utilizados
 
-## Code scaffolding
+- **Angular Signals:** Gerenciamento de estado reativo, performático e livre de vazamentos de memória.
+- **Standalone Components:** Arquitetura sem NgModules para maior clareza e carregamento otimizado.
+- **Lazy Loading:** Os jogos são carregados sob demanda através do roteamento do Angular.
+- **SCSS:** Estilização componentizada com aninhamento, variáveis e foco no tema Retro/Neon.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## 🚀 Como Executar Localmente
 
-```bash
-ng generate component component-name
-```
+1. Clone o repositório e instale as dependências:
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+   ```bash
+   npm install
+   ```
+   
+2. Inicie a aplicação que já deve abrir o navegador:
 
-```bash
-ng generate --help
-```
+   ```bash
+   npm run start
+   ```
 
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+<div align="center">
+<p>Desenvolvido com 💻 e ☕ por <strong>Rodrigo Silveira dos Santos</strong></p>
+<p>© 2026 Todos os direitos reservados.</p>
+</div>

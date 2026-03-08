@@ -14,8 +14,6 @@ import {RiverRaidOverlay} from '@feature/river-raid/components/river-raid-overla
   imports: [
     RiverRaidHud,
     ArcadeBackButton,
-    NgClass,
-    RiverRaidControlsHint,
     RiverRaidEnemies,
     RiverRaidPlayerJet,
     RiverRaidSlices,

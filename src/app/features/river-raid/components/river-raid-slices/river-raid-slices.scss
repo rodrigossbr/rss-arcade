@@ -1,11 +1,12 @@
-$color-water: #2c3e50;
-$color-bank: #27ae60;
-$color-bank-dark: #1e8449;
-$color-ship: #34495e;
-$color-fuel: #d35400;
-$color-bullet: #f1c40f;
+$color-water: var(--neutral-50);
+$color-bank: var(--success-500);
+$color-bank-dark: var(--success-700);
+$color-bank-light: var(--success-300);
 
 :host {
+  display: block;
+  background-color: $color-water;
+  transition: background-color 0.5s ease;
 
   .river-slice {
     position: absolute;
@@ -20,9 +21,30 @@ $color-bullet: #f1c40f;
       background-color: $color-bank;
       border-left: 4px solid $color-bank-dark;
       border-right: 4px solid $color-bank-dark;
+      box-shadow: inset 0 0 15px rgba(var(--success-700-rgb), 0.3);
+      transition: background-color 0.4s ease, border-color 0.4s ease;
 
-      &.left { left: 0; }
-      &.right { right: 0; }
+      &.left {
+        left: 0;
+        border-right-color: $color-bank-light;
+      }
+      &.right {
+        right: 0;
+        border-left-color: $color-bank-light;
+      }
+    }
+  }
+}
+
+:host-context(body.arcade-theme) {
+  .bank {
+    filter: drop-shadow(0 0 5px rgba(var(--success-500-rgb), 0.4));
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
     }
   }
 }

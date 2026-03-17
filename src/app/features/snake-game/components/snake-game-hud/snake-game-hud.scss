@@ -1,39 +1,70 @@
+$bg-stat: var(--neutral-100);
+$border-stat: var(--neutral-300);
+$text-label: var(--neutral-500);
+$text-value: var(--neutral-900);
+
+$color-record: var(--accent-500, #fbbf24);
+$color-score: var(--primary-500);
+
 :host {
   display: flex;
   justify-content: center;
   width: 100%;
+  margin-bottom: 20px;
 
   .hud {
     display: flex;
     justify-content: space-between;
     width: 100%;
     max-width: 400px;
+    gap: 15px;
 
     .stat-box {
-      background: #2a2a2a;
+      background: $bg-stat;
       padding: 10px 20px;
       border-radius: 8px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      min-width: 80px;
-      border: 1px solid #333;
+      min-width: 100px;
+      border: 1px solid $border-stat;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 
       .label {
-        font-size: 0.7rem;
-        color: #888;
-        letter-spacing: 1px;
+        font-size: 0.75rem;
+        color: $text-label;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        font-family: var(--font-main), monospace;
       }
 
       .value {
-        font-size: 1.5rem;
+        font-size: 1.8rem;
         font-weight: bold;
+        color: $text-value;
         font-variant-numeric: tabular-nums;
+        font-family: var(--font-main), monospace;
       }
 
-      &.stat-box.record .value {
-        color: #fbbf24;
+      &.score .value {
+        color: $color-score;
+        text-shadow: var(--glow-primary);
+      }
+
+      &.record {
+        border-color: $color-record;
+
+        .value {
+          color: $color-record;
+          text-shadow: 0 0 10px rgba(var(--accent-500-rgb), 0.4);
+        }
       }
     }
   }
+}
+
+:host-context(body.arcade-theme) .stat-box {
+  background: rgba(var(--neutral-100-rgb), 0.8);
+  backdrop-filter: blur(4px);
 }

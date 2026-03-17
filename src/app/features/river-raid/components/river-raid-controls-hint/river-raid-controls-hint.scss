@@ -1,10 +1,40 @@
+$text-hint: var(--neutral-500);
+$border-line: var(--neutral-300);
+
 :host {
+  display: block;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
 
   .controls-hint {
     margin-top: 30px;
-    color: #777;
-    font-size: 0.9rem;
-    border-top: 1px solid #333;
     padding-top: 20px;
+    color: $text-hint;
+    border-top: 1px solid $border-line;
+    font-size: 0.85rem;
+    font-family: var(--font-main), monospace;
+    text-align: center;
+    letter-spacing: 1px;
+    line-height: 1.6;
+    transition: all 0.4s ease;
+
+    kbd {
+      background: var(--neutral-100);
+      color: var(--neutral-900);
+      border: 1px solid var(--neutral-300);
+      border-radius: 4px;
+      padding: 2px 5px;
+      font-family: inherit;
+      font-size: 0.75rem;
+      box-shadow: 0 2px 0 var(--neutral-300);
+    }
+  }
+}
+
+:host-context(body.arcade-theme) {
+  .controls-hint {
+    border-top-style: dashed;
+    color: var(--neutral-700);
   }
 }

@@ -1,0 +1,13 @@
+<div class="theme-container">
+  @for (theme of themes; track theme.id) {
+    <div class="theme-item"
+         [title]="theme.label"
+         (click)="select(theme.id)"
+         [class.active]="(currentTheme$ | async)?.current === theme.id"
+         [rss-tooltip]="theme.label"
+         rss-tooltip-pos="bottom"
+    >
+      <span class="circle" [style.background-color]="theme.color"></span>
+    </div>
+  }
+</div>

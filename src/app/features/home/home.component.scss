@@ -1,55 +1,61 @@
-$primary-color: #4ade80;
-$bg-dark: #111;
-$text-muted: #aaa;
+$primary: var(--primary-500);
+$bg: var(--neutral-50);
+$text: var(--neutral-900);
 
 :host {
   display: block;
-  min-height: 98vh;
-  background: $bg-dark;
-  color: white;
-  font-family: 'Segoe UI', sans-serif;
-}
+  min-height: 100vh;
+  background: $bg;
+  color: $text;
+  font-family: 'Courier New', Courier, monospace;
+  transition: background 0.5s ease, color 0.5s ease;
 
-.arcade-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 40px 20px;
-  text-align: center;
-}
-
-.header {
-  margin-bottom: 60px;
-
-  .title {
-    font-size: 3rem;
-    color: $primary-color;
-    text-shadow: 0 0 15px rgba($primary-color, 0.4);
-    letter-spacing: 4px;
-    margin: 0;
+  .arcade-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 20px;
+    text-align: center;
   }
 
-  .subtitle {
-    color: #666;
-    letter-spacing: 2px;
-    margin-top: 10px;
-    font-size: 0.9rem;
-    animation: blink 2s infinite;
+  .header {
+    margin-bottom: 60px;
+
+    .title {
+      font-size: 3.5rem;
+      color: $primary;
+      text-shadow: 0 0 20px rgba(var(--primary-500-rgb, 255, 0, 85), 0.5);
+      letter-spacing: 6px;
+      margin: 0;
+      text-transform: uppercase;
+    }
+
+    .subtitle {
+      color: var(--neutral-500);
+      letter-spacing: 3px;
+      margin-top: 15px;
+      font-size: 1rem;
+      text-transform: uppercase;
+      animation: blink 2s infinite;
+    }
+  }
+
+  .games-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+    justify-content: center;
+    padding: 20px;
   }
 }
-
-.games-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 30px;
-  justify-content: center;
-}
-
 
 @keyframes blink {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.5;
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+:host-context(body.light-theme) {
+  .header .title {
+    text-shadow: none;
+    color: var(--primary-700);
   }
 }

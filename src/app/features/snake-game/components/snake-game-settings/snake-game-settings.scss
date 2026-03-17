@@ -1,31 +1,59 @@
+$btn-border: var(--neutral-300);
+$btn-text: var(--neutral-500);
+$active-color: var(--primary-300);
+$active-bg: rgba(var(--primary-500-rgb), 0.1);
+
 :host {
+  display: block;
+  width: 100%;
 
   .settings {
     display: flex;
-    gap: 10px;
+    gap: 12px;
     justify-content: center;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 
     .btn-toggle {
       background: transparent;
-      border: 2px solid #666;
-      color: #888;
+      border: 2px solid $btn-border;
+      color: $btn-text;
       font-size: 0.8rem;
-      padding: 8px 16px;
-      min-width: 140px;
+      font-family: var(--font-main), monospace;
+      padding: 10px 20px;
+      min-width: 150px;
+      border-radius: 6px;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: all 0.2s ease;
+
+      &:hover:not(.muted) {
+        border-color: var(--neutral-900);
+        color: var(--neutral-900);
+        background: rgba(var(--neutral-900-rgb), 0.05);
+      }
     }
 
     .btn-toggle.active {
-      border-color: #ef4444;
-      color: #ef4444;
-      background: rgba(239, 68, 68, 0.1);
+      border-color: $active-color;
+      color: $active-color;
+      background: $active-bg;
+      box-shadow: 0 0 10px rgba(var(--primary-500-rgb), 0.2);
     }
 
     .btn-toggle.muted {
-      border-color: #666;
-      color: #666;
-      opacity: 0.7;
+      border-color: var(--neutral-300);
+      color: var(--neutral-500);
+      opacity: 0.5;
       text-decoration: line-through;
+      cursor: not-allowed;
     }
+  }
+}
+
+:host-context(body.arcade-theme) .btn-toggle {
+  &.active {
+    text-shadow: var(--glow-primary);
+    box-shadow: var(--glow-primary);
   }
 }

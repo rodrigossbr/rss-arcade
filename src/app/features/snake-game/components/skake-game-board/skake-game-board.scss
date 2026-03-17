@@ -1,42 +1,78 @@
+$board-bg: var(--neutral-50);
+$cell-bg: var(--neutral-100);
+$border-color: var(--neutral-300);
+
+$snake-body: var(--primary-500);
+$snake-head: var(--primary-700);
+$food-color: var(--accent-500);
+
 :host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   .board-wrapper {
     position: relative;
-    padding: 5px;
-    background: #222;
+    padding: 8px;
+    background: $board-bg;
+    border: 2px solid $border-color;
     border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), var(--glow-primary);
+    transition: all 0.3s ease;
 
     .board {
       display: grid;
       gap: 1px;
-      background: #1a1a1a;
-      border: 2px solid #333;
+      background: $border-color;
+      border: 1px solid $border-color;
 
       .cell {
         width: 20px;
         height: 20px;
-        background: #111;
-        transition: background 0.1s;
+        background: $cell-bg;
+        transition: background 0.1s ease;
       }
 
       .cell.snake {
-        background: #4ade80;
-        box-shadow: 0 0 5px rgba(74, 222, 128, 0.5);
+        background: $snake-body;
+        box-shadow: 0 0 8px rgba(var(--primary-500-rgb), 0.5);
       }
 
       .cell.snake-head {
-        background: #22c55e;
-        border-radius: 2px;
+        background: $snake-head;
+        border-radius: 4px;
+        z-index: 2;
+        box-shadow: 0 0 12px var(--primary-500);
       }
 
       .cell.food {
-        background: #ef4444;
+        background: $food-color;
         border-radius: 50%;
-        box-shadow: 0 0 8px rgba(239, 68, 68, 0.6);
-        animation: pulse 1s infinite;
+        box-shadow: 0 0 12px rgba(var(--accent-500-rgb, 0, 255, 157), 0.6);
+        animation: pulse-food 1.5s infinite ease-in-out;
       }
+    }
+  }
+}
+
+@keyframes pulse-food {
+  0%, 100% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  50% {
+    transform: scale(0.85);
+    filter: brightness(1.3);
+    box-shadow: 0 0 20px var(--accent-500);
+  }
+}
+
+:host-context(body.light-theme) {
+  .board-wrapper {
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+
+    .board {
+      background: var(--neutral-300);
     }
   }
 }

@@ -1,0 +1,48 @@
+.rss-tooltip-ui {
+  position: absolute;
+  padding: 6px 12px;
+
+  background-color: var(--neutral-900);
+  color: var(--neutral-50);
+
+  font-size: 12px;
+  border-radius: 4px;
+  white-space: nowrap;
+  z-index: 1000;
+  pointer-events: none;
+  font-family: 'Courier New', monospace;
+
+  border: 1px solid var(--primary-500);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3), var(--glow-primary);
+
+  animation: tooltip-fade 0.2s ease-out;
+
+  &::after {
+    content: "";
+    position: absolute;
+    border-width: 5px;
+    border-style: solid;
+  }
+
+  &.tooltip-top::after {
+    top: 100%; left: 50%; margin-left: -5px;
+    border-color: var(--neutral-900) transparent transparent transparent;
+  }
+  &.tooltip-bottom::after {
+    bottom: 100%; left: 50%; margin-left: -5px;
+    border-color: transparent transparent var(--neutral-900) transparent;
+  }
+  &.tooltip-left::after {
+    left: 100%; top: 50%; margin-top: -5px;
+    border-color: transparent transparent transparent var(--neutral-900);
+  }
+  &.tooltip-right::after {
+    right: 100%; top: 50%; margin-top: -5px;
+    border-color: transparent var(--neutral-900) transparent transparent;
+  }
+}
+
+@keyframes tooltip-fade {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}

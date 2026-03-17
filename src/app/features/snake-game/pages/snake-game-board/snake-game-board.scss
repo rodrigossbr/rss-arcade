@@ -1,37 +1,43 @@
+$bg-app: var(--neutral-50);
+$text-main: var(--neutral-900);
+
 :host {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #121212;
-  color: white;
-  min-height: 98vh;
+  font-family: var(--font-main), monospace;
+  background-color: $bg-app;
+  color: $text-main;
+
+  min-height: 100vh;
+  transition: background-color 0.4s ease;
 
   .game-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 15px;
+    gap: 20px;
+    padding: 20px;
+    animation: fadeIn 0.6s ease-out;
   }
 }
 
 @keyframes pulse {
-  0% {
-    transform: scale(0.9);
+  0%, 100% {
+    transform: scale(0.95);
   }
   50% {
-    transform: scale(1.1);
-  }
-  100% {
-    transform: scale(0.9);
+    transform: scale(1.05);
   }
 }
 
 @keyframes fadeIn {
   from {
     opacity: 0;
+    transform: translateY(10px);
   }
   to {
     opacity: 1;
+    transform: translateY(0);
   }
 }

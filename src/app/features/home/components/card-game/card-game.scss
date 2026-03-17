@@ -1,6 +1,8 @@
-$primary-color: #4ade80;
-$bg-card: #1a1a1a;
-$text-muted: #aaa;
+$primary: var(--primary-500);
+$bg-card: var(--neutral-100);
+$border-color: var(--neutral-300);
+$text-main: var(--neutral-900);
+$text-muted: var(--neutral-500);
 
 @mixin flex-center {
   display: flex;
@@ -9,9 +11,11 @@ $text-muted: #aaa;
 }
 
 :host {
+  display: block;
+
   .game-card {
     background: $bg-card;
-    border: 1px solid #333;
+    border: 1px solid $border-color;
     border-radius: 16px;
     overflow: hidden;
     text-decoration: none;
@@ -22,27 +26,44 @@ $text-muted: #aaa;
     flex-direction: column;
     height: 100%;
 
-    &:hover {
+    &:hover:not(.locked) {
       transform: translateY(-8px);
-      border-color: $primary-color;
-      box-shadow: 0 10px 30px rgba($primary-color, 0.15);
+      border-color: $primary;
+      box-shadow: 0 10px 30px rgba(var(--primary-500-rgb), 0.2), var(--glow-primary);
 
       .btn-play {
-        background: $primary-color;
-        color: black;
+        background: $primary;
+        color: var(--primary-contrast);
+        box-shadow: 0 0 15px rgba(var(--primary-500-rgb), 0.4);
+      }
+
+      .card-preview {
+        filter: brightness(1.2);
       }
     }
 
     .card-preview {
       height: 160px;
-      background: #222;
+      background: var(--neutral-50);
       @include flex-center;
       font-size: 4rem;
-      border-bottom: 1px solid #333;
+      border-bottom: 2px solid $border-color;
+      transition: all 0.3s ease;
     }
 
     &.snake-card .card-preview {
-      background: linear-gradient(135deg, #064e3b, #10b981);
+      background: linear-gradient(135deg, var(--primary-900), var(--primary-500));
+      color: var(--primary-50);
+    }
+
+    &.river-raid-card .card-preview {
+      background: linear-gradient(135deg, var(--success-900), var(--success-500));
+      color: var(--success-50);
+    }
+
+    &.space-invaders-card .card-preview {
+      background: linear-gradient(135deg, var(--accent-900), var(--accent-500));
+      color: var(--accent-50);
     }
 
     .card-content {
@@ -56,7 +77,8 @@ $text-muted: #aaa;
       h2 {
         margin: 0 0 8px 0;
         font-size: 1.5rem;
-        color: white;
+        color: $text-main;
+        letter-spacing: 1px;
       }
 
       p {
@@ -70,31 +92,41 @@ $text-muted: #aaa;
     .btn-play {
       width: 100%;
       padding: 12px;
-      background: #333;
-      color: white;
+      background: var(--neutral-300);
+      color: var(--neutral-700);
       border: none;
-      font-weight: bold;
+      font-weight: 900;
       border-radius: 8px;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 2px;
       cursor: pointer;
-      transition: background 0.2s, color 0.2s;
+      transition: all 0.2s ease;
+
+      &:hover {
+        filter: brightness(1.1);
+      }
     }
 
     &.locked {
-      opacity: 0.5;
-      cursor: default;
+      opacity: 0.6;
+      cursor: not-allowed;
       border-style: dashed;
-
-      &:hover {
-        transform: none;
-        box-shadow: none;
-        border-color: #333;
-      }
+      background: var(--neutral-50);
 
       .card-preview {
-        background: #111;
-        color: #444;
+        background: var(--neutral-100);
+        color: var(--neutral-300);
+        filter: grayscale(1);
+        opacity: 0.5;
+      }
+
+      h2 { color: var(--neutral-500); }
+      p { color: var(--neutral-300); }
+
+      .btn-play {
+        background: var(--neutral-100);
+        color: var(--neutral-300);
+        pointer-events: none;
       }
     }
   }

@@ -1,0 +1,46 @@
+:host {
+  position: absolute;
+  right: 6px;
+  top: 10px;
+  z-index: 1000;
+
+  .theme-container {
+    display: flex;
+    gap: 15px;
+    padding: 10px;
+    margin-right: 20px;
+  }
+
+  .theme-item {
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+
+    .circle {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: 2px solid var(--neutral-300);
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    &:hover {
+      .circle {
+        transform: scale(1.2);
+        border-color: var(--primary-500);
+      }
+    }
+
+    &.active {
+      .circle {
+        border-color: var(--accent-500, #00ff00);
+        box-shadow: 0 0 12px var(--accent-500, rgba(0, 255, 0, 0.5));
+        transform: scale(1.1);
+      }
+    }
+  }
+}

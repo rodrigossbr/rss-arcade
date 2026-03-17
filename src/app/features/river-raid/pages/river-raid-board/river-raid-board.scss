@@ -1,56 +1,100 @@
-// --- PALETA DE CORES RETRO (Atari 2600 Style) ---
-$color-water: #2c3e50;  // Azul profundo (Modernizado)
-$color-bank: #27ae60;   // Verde Grama
-$color-bank-dark: #1e8449; // Borda da grama
-$color-ship: #34495e;
-$color-fuel: #d35400;
-$color-bullet: #f1c40f;
+$color-river: var(--neutral-50);
+$color-cabinet: var(--neutral-100);
+$color-border: var(--neutral-300);
+$color-grid: rgba(var(--primary-500-rgb, 255, 255, 255), 0.05);
 
 :host {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 98vh;
-  background-color: #050505; // Fundo fora do jogo
-  font-family: 'Segoe UI', monospace;
+  min-height: 100vh;
+  background-color: var(--neutral-50);
+  font-family: var(--font-main), monospace;
+  transition: background-color 0.5s ease;
 }
 
 .arcade-wrapper {
   position: relative;
-  box-shadow: 0 0 60px rgba(0, 0, 0, 0.8);
-  border: 10px solid #222;
-  border-radius: 4px;
+  box-shadow: 0 0 60px rgba(0, 0, 0, 0.8), var(--glow-primary);
+  border: 12px solid $color-cabinet;
+  border-radius: 8px;
+  background-color: $color-cabinet;
+  transition: all 0.4s ease;
 }
 
 .game-viewport {
   position: relative;
-  background-color: $color-water;
-  overflow: hidden; // Corta tudo que sai da tela
-
-  // Grade sutil para sensação de velocidade
-  background-image:
-    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-color: $color-river;
+  overflow: hidden;
+  border: 4px solid $color-border;
+  background-image: linear-gradient($color-grid 1px, transparent 1px),
+  linear-gradient(90deg, $color-grid 1px, transparent 1px);
   background-size: 100% 40px, 40px 100%;
+
+  transition: background-color 0.5s ease;
 }
 
 @keyframes float-heli {
-  from { transform: translateY(0) rotate(-2deg); }
-  to { transform: translateY(-5px) rotate(2deg); }
+  from {
+    transform: translateY(0) rotate(-2deg);
+  }
+  to {
+    transform: translateY(-6px) rotate(2deg);
+  }
 }
 
 @keyframes thrust-anim {
-  from { height: 10px; opacity: 0.8; }
-  to { height: 20px; opacity: 1; }
+  from {
+    height: 10px;
+    opacity: 0.6;
+    filter: brightness(1);
+  }
+  to {
+    height: 22px;
+    opacity: 1;
+    filter: brightness(1.4);
+  }
 }
 
 @keyframes pop-in {
-  from { transform: scale(0.8); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
+  from {
+    transform: scale(0.85);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 @keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-10px); }
-  75% { transform: translateX(10px); }
+  0%, 100% {
+    transform: translate(0);
+  }
+  25% {
+    transform: translate(-8px, 4px);
+  }
+  50% {
+    transform: translate(8px, -4px);
+  }
+  75% {
+    transform: translate(-4px, 8px);
+  }
+}
+
+:host-context(body.arcade-theme) .game-viewport {
+  &::before {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%),
+    linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+    z-index: 200;
+    background-size: 100% 4px, 3px 100%;
+    pointer-events: none;
+  }
 }

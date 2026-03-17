@@ -1,104 +1,123 @@
+$hud-bg: var(--neutral-50);
+$hud-border: var(--neutral-300);
+$text-main: var(--neutral-900);
+$text-muted: var(--neutral-500);
+
 :host {
   display: block;
   width: 100%;
-  // O HUD do Atari geralmente ficava embaixo
   position: absolute;
   bottom: 0;
   left: 0;
   z-index: 100;
-}
 
-.hud-container {
-  background-color: #000;
-  border-top: 4px solid #444;
-  height: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 20px;
-  color: #fff;
-  font-family: 'Courier New', Courier, monospace; // Fonte Monoespaçada é essencial
-  font-weight: bold;
-  box-shadow: 0 -5px 20px rgba(0,0,0,0.5);
-}
-
-// --- SCORE ---
-.score-panel {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-
-  .label {
-    font-size: 0.8rem;
-    color: #888;
-    letter-spacing: 2px;
+  .hud-container {
+    background-color: $hud-bg;
+    border-top: 4px solid $hud-border;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+    color: $text-main;
+    font-family: var(--font-main), monospace;
+    font-weight: bold;
+    box-shadow: 0 -5px 25px rgba(0, 0, 0, 0.4);
+    transition: all 0.4s ease;
   }
 
-  .value {
-    font-size: 1.8rem;
-    color: #fff;
-    letter-spacing: 3px;
-    text-shadow: 2px 2px 0 #333;
-  }
-}
+  .score-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 
-// --- FUEL BAR ---
-.fuel-panel {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  width: 200px; // Largura fixa para a barra não pular
+    .label {
+      font-size: 0.75rem;
+      color: $text-muted;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
 
-  .label {
-    font-size: 0.8rem;
-    color: #888;
-    margin-bottom: 5px;
-  }
-
-  .fuel-gauge-border {
-    width: 100%;
-    height: 20px;
-    border: 2px solid #666;
-    background: #222;
-    padding: 2px;
-    border-radius: 4px;
-  }
-
-  .fuel-bar {
-    height: 100%;
-    transition: width 0.1s linear, background-color 0.3s;
-    box-shadow: inset 0 2px 0 rgba(255,255,255,0.3); // Efeito de brilho "vidro"
-
-    &.critical {
-      animation: blink-fuel 0.5s infinite;
+    .value {
+      font-size: 2rem;
+      color: var(--primary-500);
+      letter-spacing: 4px;
+      text-shadow: 2px 2px 0 var(--neutral-100);
+      font-variant-numeric: tabular-nums;
     }
   }
-}
 
-// --- STATUS (CENTRO) ---
-.status-panel {
-  text-align: center;
-  color: #ef4444;
+  .fuel-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 220px;
 
-  .blink-text {
-    font-size: 1.5rem;
-    display: block;
-    animation: blink-text 1s infinite;
+    .label {
+      font-size: 0.75rem;
+      color: $text-muted;
+      margin-bottom: 5px;
+      text-transform: uppercase;
+    }
+
+    .fuel-gauge-border {
+      width: 100%;
+      height: 22px;
+      border: 2px solid $hud-border;
+      background: var(--neutral-100);
+      padding: 3px;
+      border-radius: 4px;
+      box-shadow: inset 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    .fuel-bar {
+      height: 100%;
+      background-color: var(--accent-500);
+      transition: width 0.2s linear, background-color 0.4s;
+      box-shadow: inset 0 2px 0 rgba(255,255,255,0.2);
+
+      &.warning { background-color: var(--primary-500); }
+      &.critical {
+        background-color: var(--warn-500);
+        animation: blink-fuel 0.5s infinite;
+      }
+    }
   }
 
-  small {
-    color: #888;
-    font-size: 0.7rem;
+  .status-panel {
+    text-align: center;
+    color: var(--warn-500);
+
+    .blink-text {
+      font-size: 1.6rem;
+      display: block;
+      letter-spacing: 3px;
+      animation: blink-text 0.8s infinite;
+      text-shadow: 0 0 10px rgba(var(--warn-500-rgb), 0.5);
+    }
+
+    small {
+      color: $text-muted;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+    }
+  }
+
+  @keyframes blink-fuel {
+    0%, 100% { opacity: 1; filter: brightness(1.2); }
+    50% { opacity: 0.4; filter: brightness(0.8); }
+  }
+
+  @keyframes blink-text {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(0.92); opacity: 0.6; }
   }
 }
 
-// --- ANIMAÇÕES ---
-@keyframes blink-fuel {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.3; }
-}
-
-@keyframes blink-text {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0; transform: scale(0.95); }
+:host-context(body.arcade-theme) {
+  .hud-container {
+    background-color: rgba(var(--neutral-50-rgb), 0.9);
+    backdrop-filter: blur(8px);
+  }
+  .score-panel .value { text-shadow: var(--glow-primary); }
 }

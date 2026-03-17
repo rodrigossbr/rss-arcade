@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import {StateStoreService} from '@core/storage';
 import {SnackGameState} from '../models/snack-game-state';
+import {StateStoreService} from '@rssbr/state-store';
 
 @Injectable({
   providedIn: 'root',

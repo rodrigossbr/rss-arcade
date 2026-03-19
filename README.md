@@ -2,13 +2,20 @@
 
 Um portfólio interativo de jogos retro desenvolvidos nativamente no navegador utilizando **Angular** moderno. Este projeto demonstra a aplicação de padrões de arquitetura escaláveis, gerenciamento de estado reativo e otimização de performance para renderização de frames em tempo real.
 
+<div align="center">
+  <img src="./docs/prints/home.png" alt="Página home" width="80%">
+  <p><em>Demonstração da tela inicial de seleção de jogos.</em></p>
+</div>
+
+## 🛠️ Stack Tecnológica
+
 ![Angular](https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
 ![SCSS](https://img.shields.io/badge/Sass-CC6699?style=for-the-badge&logo=sass&logoColor=white)
+![NPM](https://img.shields.io/badge/NPM-CB3837?style=for-the-badge&logo=npm&logoColor=white)
 
-<div align="center">
-  <img src="./docs/prints/home.png" alt="Tela Inicial do Arcade" width="800"/>
-</div>
+* **Framework:** [Angular 21](https://v21.angular.dev) (Standalone Components, Signals, New App Initializer)
+* **State Management:** [@rssbr/state-store](https://www.npmjs.com/package/@rssbr/state-store) (Biblioteca open source para gerenciamento de estados)
 
 ---
 
@@ -75,6 +82,11 @@ src/app/
    ```
 
 <div align="center">
-<p>Desenvolvido com 💻 e ☕ por <strong>Rodrigo Silveira dos Santos</strong></p>
-<p>© 2026 Todos os direitos reservados.</p>
+  <hr>
+  <p>Desenvolvido com 💻 e ☕ por <strong>Rodrigo Silveira dos Santos</strong></p>
+  <img src="https://img.shields.io/badge/Local-Imbé%2C%20RS-blue?style=flat-square&logo=googlemaps&logoColor=white" alt="Local">
+  <a href="mailto:rodrigoss.br%40gmail.com" target="_blank">
+    <img src="https://img.shields.io/badge/Email-rodrigoss.br%40gmail.com-green?style=flat-square&logo=gmail&logoColor=white" alt="Email">
+  </a>
+  <p>© 2026 Todos os direitos reservados.</p>
 </div>

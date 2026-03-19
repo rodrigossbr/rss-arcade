@@ -1,6 +1,30 @@
 {
   "name": "rss-arcade",
-  "version": "0.0.0",
+  "version": "0.0.1",
+  "author": "Rodrigo S. Santos <rodrigoss.br@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/rodrigossbr/rss-arcade#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rodrigossbr/rss-arcade.git"
+  },
+  "bugs": {
+    "url": "https://github.com/rodrigossbr/rss-arcade/issues"
+  },
+  "description": "Uma coletânea de jogos clássicos (Snake, River Raid) desenvolvidos com Angular, focada em sistemas de temas dinâmicos e design retrô.",
+  "keywords": [
+    "angular-games",
+    "retro-gaming",
+    "atari-2600-style",
+    "snake-game",
+    "river-raid-clone",
+    "css-theming",
+    "monorepo",
+    "nx",
+    "web-arcade",
+    "frontend-portfolio",
+    "component-architecture"
+  ],
   "scripts": {
     "ng": "ng",
     "start": "ng serve --open",
@@ -37,7 +61,8 @@
     "@angular/build": "^21.2.2",
     "@angular/cli": "^21.2.2",
     "@angular/compiler-cli": "^21.2.4",
-    "jsdom": "^27.1.0",
+    "jsdom": "^28.0.0",
+    "prettier": "^3.8.1",
     "typescript": "~5.9.2",
     "vitest": "^4.0.8"
   }

@@ -1,13 +1,17 @@
-# 🕹️ Rodrigo's Arcade
-
-Um portfólio interativo de jogos retro desenvolvidos nativamente no navegador utilizando **Angular** moderno. Este projeto demonstra a aplicação de padrões de arquitetura escaláveis, gerenciamento de estado reativo e otimização de performance para renderização de frames em tempo real.
-
 <div align="center">
-  <img src="./docs/prints/home.png" alt="Página home" width="80%">
-  <p><em>Demonstração da tela inicial de seleção de jogos.</em></p>
+  <a href="README.md">English</a> | <a href="README.pt-br.md">Português do Brasil</a>
 </div>
 
-## 🛠️ Stack Tecnológica
+# 🕹️ Rodrigo's Arcade
+
+An interactive portfolio of retro games developed natively in the browser using modern **Angular**. This project demonstrates the application of scalable architectural patterns, reactive state management, and performance optimization for real-time frame rendering.
+
+<div align="center">
+  <img src="./docs/prints/home.png" alt="Homepage" width="80%">
+  <p><em>Demonstration of the initial game selection screen.</em></p>
+</div>
+
+## 🛠️ Tech Stack
 
 ![Angular](https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
@@ -15,67 +19,68 @@ Um portfólio interativo de jogos retro desenvolvidos nativamente no navegador u
 ![NPM](https://img.shields.io/badge/NPM-CB3837?style=for-the-badge&logo=npm&logoColor=white)
 
 * **Framework:** [Angular 21](https://v21.angular.dev) (Standalone Components, Signals, New App Initializer)
-* **State Management:** [@rssbr/state-store](https://www.npmjs.com/package/@rssbr/state-store) (Biblioteca open source para gerenciamento de estados)
+* **State Management:** [@rssbr/state-store](https://www.npmjs.com/package/@rssbr/state-store) (Open source library for state management)
 
 ---
 
-## 🎮 Jogos Inclusos
+## 🎮 Included Games
 
 ### 1. Snake Classic 🐍
-O clássico jogo da cobrinha, reimaginado com uma arquitetura baseada em grid e controle de estado reativo.
-- **Destaques:** Sistema de pontuação, power-ups e aumento progressivo de dificuldade.
+The classic snake game, reimagined with a grid-based architecture and reactive state control.
+- **Highlights:** Scoring system, power-ups, and progressive difficulty increase.
 
 <div align="center">
-  <img src="./docs/prints/snake.png" alt="Gameplay do Snake" width="800"/>
+  <img src="./docs/prints/snake.png" alt="Snake Gameplay" width="800"/>
 </div>
 
 ### 2. River Raid (Atari Tribute) ✈️
-Um motor de física contínua com rolagem vertical infinita.
-- **Mecânica:** Geração procedural do mapa (o rio nunca se repete) e sistema de auto-fire contínuo.
-- **Tecnologia:** - Loop de renderização a 60 FPS executado via `requestAnimationFrame` fora do Angular Zone (`NgZone.runOutsideAngular`) para máxima performance.
-  - Sistema de colisão AABB com *Hitbox Padding* para uma experiência de jogo mais justa e fluida.
-  - Sistema de Entidades (Inimigos, Combustível, Projéteis).
-  - Animações otimizadas via GPU (`will-change: transform`).
+A continuous physics engine with infinite vertical scrolling.
+- **Mechanics:** Procedural map generation (the river never repeats) and a continuous auto-fire system.
+- **Technology:**
+  - 60 FPS rendering loop executed via `requestAnimationFrame` outside the Angular Zone (`NgZone.runOutsideAngular`) for maximum performance.
+  - AABB collision system with *Hitbox Padding* for a fairer and smoother gaming experience.
+  - Entity System (Enemies, Fuel, Projectiles).
+  - GPU-optimized animations (`will-change: transform`).
 
 <div align="center">
-  <img src="./docs/prints/river-raid.png" alt="Gameplay do River Raid" width="800"/>
+  <img src="./docs/prints/river-raid.png" alt="River Raid Gameplay" width="800"/>
 </div>
 
-### 3. Checkers (Damas) ♟️ *(Em Desenvolvimento)*
-- **Foco:** Inteligência Artificial e algoritmos de tomada de decisão utilizando **Minimax**.
+### 3. Checkers ♟️ *(In Development)*
+- **Focus:** Artificial Intelligence and decision-making algorithms using **Minimax**.
 
 ---
 
-## 🏗️ Arquitetura do Projeto
+## 🏗️ Project Architecture
 
-O código foi estruturado focando em escalabilidade e separação de responsabilidades (Modular Monolith):
+The code was structured focusing on scalability and separation of concerns (Modular Monolith):
 
 ```text
 src/app/
-├── core/                  # Serviços Singleton e Store global (Configurações, Áudio)
-├── features/              # Módulos independentes encapsulados
-│   ├── home/              # Interface do Arcade Dashboard
-│   ├── snake-game/        # Lógica de Grid e UI do Snake
-│   └── river-raid/        # Engine de Física e UI do River Raid
-└── shared/                # Componentes reutilizáveis (ex: Arcade Back Button)
+├── core/                  # Singleton services and global Store (Settings, Audio)
+├── features/              # Encapsulated independent modules
+│   ├── home/              # Arcade Dashboard Interface
+│   ├── snake-game/        # Grid logic and Snake UI
+│   └── river-raid/        # Physics Engine and River Raid UI
+└── shared/                # Reusable components (e.g., Arcade Back Button)
 ```
 
-### Principais Padrões Utilizados
+### Key Patterns Used
 
-- **Angular Signals:** Gerenciamento de estado reativo, performático e livre de vazamentos de memória.
-- **Standalone Components:** Arquitetura sem NgModules para maior clareza e carregamento otimizado.
-- **Lazy Loading:** Os jogos são carregados sob demanda através do roteamento do Angular.
-- **SCSS:** Estilização componentizada com aninhamento, variáveis e foco no tema Retro/Neon.
+- **Angular Signals:** Reactive, performant, and memory-leak-free state management.
+- **Standalone Components:** Architecture without NgModules for greater clarity and optimized loading.
+- **Lazy Loading:** Games are loaded on-demand through Angular's routing.
+- **SCSS:** Component-based styling with nesting, variables, and a focus on the Retro/Neon theme.
 
-## 🚀 Como Executar Localmente
+## 🚀 How to Run Locally
 
-1. Clone o repositório e instale as dependências:
+1. Clone the repository and install the dependencies:
 
    ```bash
    npm install
    ```
    
-2. Inicie a aplicação que já deve abrir o navegador:
+2. Start the application, which should open in your browser:
 
    ```bash
    npm run start
@@ -83,10 +88,10 @@ src/app/
 
 <div align="center">
   <hr>
-  <p>Desenvolvido com 💻 e ☕ por <strong>Rodrigo Silveira dos Santos</strong></p>
-  <img src="https://img.shields.io/badge/Local-Imbé%2C%20RS-blue?style=flat-square&logo=googlemaps&logoColor=white" alt="Local">
+  <p>Developed with 💻 and ☕ by <strong>Rodrigo Silveira dos Santos</strong></p>
+  <img src="https://img.shields.io/badge/Location-Imbé%2C%20RS-blue?style=flat-square&logo=googlemaps&logoColor=white" alt="Location">
   <a href="mailto:rodrigoss.br%40gmail.com" target="_blank">
     <img src="https://img.shields.io/badge/Email-rodrigoss.br%40gmail.com-green?style=flat-square&logo=gmail&logoColor=white" alt="Email">
   </a>
-  <p>© 2026 Todos os direitos reservados.</p>
+  <p>© 2026 All rights reserved.</p>
 </div>
